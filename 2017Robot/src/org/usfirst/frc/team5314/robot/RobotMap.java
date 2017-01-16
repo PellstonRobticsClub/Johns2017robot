@@ -27,6 +27,8 @@ public class RobotMap {
 	
 	//drive joystick buttons
 	public static final int gyroResetButton = 1;
+	public static final int button180 = 2;
+	public static final int button0 = 3;
 	
 
 	// If you are using multiple modules, make sure to define both the port

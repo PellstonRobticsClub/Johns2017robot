@@ -1,5 +1,6 @@
 package org.usfirst.frc.team5314.robot.subsystems;
 
+import org.usfirst.frc.team5314.robot.Robot;
 import org.usfirst.frc.team5314.robot.RobotMap;
 import org.usfirst.frc.team5314.robot.commands.TeleDriveCommand;
 
@@ -21,7 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ChassisSubsystem extends Subsystem {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
-	ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+	
 	//AnalogGyro gyro = new AnalogGyro(RobotMap.gyro);
 	Talon frontLeftMotor = new Talon(RobotMap.frontLeftMotor);
 	Talon rearLeftMotor = new Talon(RobotMap.rearLeftMotor);
@@ -36,7 +37,7 @@ public class ChassisSubsystem extends Subsystem {
 	PowerDistributionPanel pdp = new PowerDistributionPanel();
 	
 	public ChassisSubsystem(){
-		gyro.calibrate();
+		
 		pdp.clearStickyFaults();
 	}
 
@@ -47,14 +48,14 @@ public class ChassisSubsystem extends Subsystem {
 	}
 	
 	public void TeleDrive(double x, double y, double twist){
-		double angle = gyro.getAngle();
+		double angle = Robot.gyro.getAngle();
 		drivetrain.mecanumDrive_Cartesian(x, y, twist, angle);
 	}
 	
 	public void gyroReset(){
-		gyro.reset();
+		Robot.gyro.reset();
 	}
 	public void updateStatus(){
-		SmartDashboard.putNumber("gyro", gyro.getAngle());
+		SmartDashboard.putNumber("gyro", Robot.gyro.getAngle());
 	}
 }

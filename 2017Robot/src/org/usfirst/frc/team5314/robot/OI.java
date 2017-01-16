@@ -1,5 +1,8 @@
 package org.usfirst.frc.team5314.robot;
 
+import org.usfirst.frc.team5314.robot.commands.TurnTo0Command;
+import org.usfirst.frc.team5314.robot.commands.TurnTo180Command;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -16,7 +19,8 @@ public class OI {
 	// number it is.
 	Joystick drivestick = new Joystick(RobotMap.driveStick);
 	Button gyroResetbutton = new JoystickButton(drivestick, RobotMap.gyroResetButton);
-
+	Button turnTo0 = new JoystickButton(drivestick, RobotMap.button0);
+	Button turnTo180 = new JoystickButton(drivestick, RobotMap.button180);
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to
 	// commands the same as any other Button.
@@ -24,7 +28,10 @@ public class OI {
 	//// TRIGGERING COMMANDS WITH BUTTONS
 	// Once you have a button, it's trivial to bind it to a button in one of
 	// three ways:
-
+	public void oi(){
+		turnTo0.whenPressed(new TurnTo0Command());
+		turnTo180.whenPressed(new TurnTo180Command());
+	}
 	// Start the command when the button is pressed and let it run the command
 	// until it is finished as determined by it's isFinished method.
 	// button.whenPressed(new ExampleCommand());

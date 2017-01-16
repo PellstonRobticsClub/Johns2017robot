@@ -4,16 +4,10 @@ import org.usfirst.frc.team5314.robot.Robot;
 import org.usfirst.frc.team5314.robot.RobotMap;
 import org.usfirst.frc.team5314.robot.commands.TeleDriveCommand;
 
-import com.ctre.CANTalon;
-
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.hal.PDPJNI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**

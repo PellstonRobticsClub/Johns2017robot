@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team5314.robot.commands.TeleDriveCommand;
+import org.usfirst.frc.team5314.robot.commands.TurnTo0Command;
+import org.usfirst.frc.team5314.robot.commands.TurnTo180Command;
 import org.usfirst.frc.team5314.robot.subsystems.ChassisSubsystem;
 
 /**
@@ -36,6 +38,8 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		Robot.gyro.calibrate();
+		SmartDashboard.putData("turn to 180", new TurnTo180Command());
+		SmartDashboard.putData("turn to 0", new TurnTo0Command());
 	}
 
 	/**
@@ -105,6 +109,10 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putData(Chassis);
+		SmartDashboard.putData(Scheduler.getInstance());
+		Chassis.updateStatus();
+		
 	}
 
 	/**

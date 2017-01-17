@@ -48,12 +48,12 @@ public class OI {
 		return gyroResetbutton.get();
 	}
 	public double getDriveX(){
-		return drivestick.getX();
+		return drivestick.getRawAxis(0);
 	}
 	public double getDriveY(){
-		return drivestick.getY();
+		return drivestick.getRawAxis(1);
 	}
 	public double getDriveTwist(){
-		return drivestick.getTwist();
+		return drivestick.getRawAxis(4);
 	}
 }

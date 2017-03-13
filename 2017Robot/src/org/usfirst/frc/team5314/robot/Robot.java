@@ -2,33 +2,23 @@
 package org.usfirst.frc.team5314.robot;
 
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.VisionThread;
-import javafx.scene.chart.LineChart.SortingPolicy;
-
 import org.opencv.core.Rect;
 import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team5314.robot.GripPipeline;
 
-import java.net.StandardProtocolFamily;
-
 import org.usfirst.frc.team5314.robot.commands.AllignToTargetXaxisCommand;
 import org.usfirst.frc.team5314.robot.commands.DriveSetDistanceCommand;
 import org.usfirst.frc.team5314.robot.commands.DriveToDistFromWallCommand;
-import org.usfirst.frc.team5314.robot.commands.TeleDriveCommand;
-
 import org.usfirst.frc.team5314.robot.commands.TurnToAngleCommand;
 import org.usfirst.frc.team5314.robot.commands.autoDriveForwardTurn90CommandGroup;
 import org.usfirst.frc.team5314.robot.subsystems.ChassisSubsystem;

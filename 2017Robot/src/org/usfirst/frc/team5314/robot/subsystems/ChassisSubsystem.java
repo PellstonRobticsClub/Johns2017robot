@@ -9,9 +9,6 @@ import com.ctre.CANTalon;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -58,7 +55,6 @@ public class ChassisSubsystem extends Subsystem {
 	public void updateStatus(){
 		int size;
 		double centerX;
-		double centerX2;
 		synchronized (Robot.imgLock) {
 			size = Robot.CountContours;
 			centerX = Robot.centerX;

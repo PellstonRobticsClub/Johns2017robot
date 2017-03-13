@@ -21,10 +21,8 @@ public class TeleDriveCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		if(Robot.oi.gyroResetTrue()){
-			Robot.Chassis.gyroReset();
-		}
-		Robot.Chassis.TeleDrive(Robot.oi.getDriveX(), Robot.oi.getDriveY(), Robot.oi.getDriveTwist());
+		double angle = Robot.ahrs.getAngle();
+		Robot.Chassis.TeleDrive(Robot.oi.getDriveX(), Robot.oi.getDriveY(), Robot.oi.getDriveTwist(),angle);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

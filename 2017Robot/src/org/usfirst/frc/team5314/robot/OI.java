@@ -1,7 +1,6 @@
 package org.usfirst.frc.team5314.robot;
 
-import org.usfirst.frc.team5314.robot.commands.TurnTo0Command;
-import org.usfirst.frc.team5314.robot.commands.TurnTo180Command;
+
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -29,8 +28,7 @@ public class OI {
 	// Once you have a button, it's trivial to bind it to a button in one of
 	// three ways:
 	public void oi(){
-		turnTo0.whenPressed(new TurnTo0Command());
-		turnTo180.whenPressed(new TurnTo180Command());
+		
 	}
 	// Start the command when the button is pressed and let it run the command
 	// until it is finished as determined by it's isFinished method.

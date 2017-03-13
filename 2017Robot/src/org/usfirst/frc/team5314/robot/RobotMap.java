@@ -17,10 +17,11 @@ public class RobotMap {
 	// public static int leftMotor = 1;
 	// public static int rightMotor = 2;
 	//can motor controllers
-	public static final int frontLeftMotor = 0;
+	public static final int frontLeftMotor = 4;
 	public static final int rearLeftMotor = 1;
 	public static final int frontRightMotor = 2;
 	public static final int rearRightMotor = 3;
+	public static final int GearTilt = 5;
 	
 	//usb joystics
 	public static final int driveStick = 0;
@@ -29,6 +30,14 @@ public class RobotMap {
 	public static final int gyroResetButton = 1;
 	public static final int button180 = 2;
 	public static final int button0 = 3;
+	
+	
+	//pcm
+	public static final int wheelsdown = 1;
+	public static final int	wheelsup = 0;
+	public static final int gearRelease = 2;
+	public static final int gearGrab= 3;
+	public static final int red = 4;
 	
 
 	// If you are using multiple modules, make sure to define both the port

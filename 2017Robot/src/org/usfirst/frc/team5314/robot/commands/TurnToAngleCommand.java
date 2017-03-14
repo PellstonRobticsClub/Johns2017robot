@@ -33,7 +33,7 @@ public class TurnToAngleCommand extends Command {
     	twist = (twist > .5) ? .5 : twist;
     	twist = (twist < -.5) ? -.5 : twist;
     	
-    	Robot.Chassis.TeleDrive(0, 0, twist,0);
+    	Robot.Chassis.mecaDrive(0, 0, twist,0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

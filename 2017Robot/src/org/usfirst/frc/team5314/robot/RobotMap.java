@@ -35,6 +35,8 @@ public class RobotMap {
 	public static final int gearRelease = 2;
 	public static final int gearGrab= 3;
 	public static final int red = 4;
+	public static final double tiltDown = 0;
+	public static final double tiltUp = 0;
 	
 
 	// If you are using multiple modules, make sure to define both the port

@@ -2,7 +2,7 @@ package org.usfirst.frc.team5314.robot.subsystems;
 
 import org.usfirst.frc.team5314.robot.Robot;
 import org.usfirst.frc.team5314.robot.RobotMap;
-import org.usfirst.frc.team5314.robot.commands.TeleDriveCommand;
+import org.usfirst.frc.team5314.robot.commands.MecaDriveCommand;
 
 import com.ctre.CANTalon;
 
@@ -25,7 +25,7 @@ public class ChassisSubsystem extends Subsystem {
 	CANTalon rearLeftMotor = new CANTalon(RobotMap.rearLeftMotor);
 	CANTalon frontRightMotor = new CANTalon(RobotMap.frontRightMotor);
 	CANTalon rearRightMotor = new CANTalon(RobotMap.rearRightMotor);
-	DoubleSolenoid dropWheels = new DoubleSolenoid(RobotMap.gearRelease, RobotMap.gearGrab);
+	DoubleSolenoid dropWheels = new DoubleSolenoid(RobotMap.wheelsdown, RobotMap.wheelsup);
 	RobotDrive drivetrain = new RobotDrive(frontLeftMotor, 
 										   rearLeftMotor, 
 										   frontRightMotor, 
@@ -43,14 +43,17 @@ public class ChassisSubsystem extends Subsystem {
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
-		setDefaultCommand(new TeleDriveCommand());
+		setDefaultCommand(new MecaDriveCommand());
 		
 	}
 	
-	public void TeleDrive(double x, double y, double twist, double angle){
+	public void mecaDrive(double x, double y, double twist, double angle){
 		drivetrain.mecanumDrive_Cartesian(x, y, twist, angle);
 	}
 	
+	public void arcadeDrive(double move, double rotate){
+		drivetrain.arcadeDrive(move, rotate);
+	}
 	
 	public void updateStatus(){
 		int size;
@@ -73,6 +76,9 @@ public class ChassisSubsystem extends Subsystem {
 	
 	public void liftWheels(){
 		dropWheels.set(DoubleSolenoid.Value.kReverse);
+	}
+	public void dropWheels(){
+		dropWheels.set(DoubleSolenoid.Value.kForward);
 	}
 	
 	public double GetEnc(){

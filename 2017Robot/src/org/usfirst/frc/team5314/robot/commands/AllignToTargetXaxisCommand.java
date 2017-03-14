@@ -44,7 +44,7 @@ public class AllignToTargetXaxisCommand extends Command {
     	strafe = (strafe < -.4) ? -.4 : strafe;
     	drive = (dist-Robot.Chassis.GetEnc())*3;
     	drive = (drive < -.5) ? -.5 : drive;
-    	Robot.Chassis.TeleDrive(strafe, drive, twist,0);
+    	Robot.Chassis.mecaDrive(strafe, drive, twist,0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

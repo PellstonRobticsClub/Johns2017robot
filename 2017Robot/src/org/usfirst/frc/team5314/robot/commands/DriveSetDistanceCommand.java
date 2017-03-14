@@ -34,7 +34,7 @@ public class DriveSetDistanceCommand extends Command {
     	speed = (speed < -.5) ? -.5 : speed;
     	twist = (angle - Robot.ahrs.getAngle())*10;
     	SmartDashboard.putNumber("twist", twist);
-    	Robot.Chassis.TeleDrive(0, -speed, twist,0);
+    	Robot.Chassis.mecaDrive(0, -speed, twist,0);
     	
     }
 

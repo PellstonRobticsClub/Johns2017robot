@@ -17,11 +17,13 @@ import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team5314.robot.GripPipeline;
 
 import org.usfirst.frc.team5314.robot.commands.AllignToTargetXaxisCommand;
+import org.usfirst.frc.team5314.robot.commands.ArcadeDriveCommand;
 import org.usfirst.frc.team5314.robot.commands.DriveSetDistanceCommand;
 import org.usfirst.frc.team5314.robot.commands.DriveToDistFromWallCommand;
 import org.usfirst.frc.team5314.robot.commands.TurnToAngleCommand;
 import org.usfirst.frc.team5314.robot.commands.autoDriveForwardTurn90CommandGroup;
 import org.usfirst.frc.team5314.robot.subsystems.ChassisSubsystem;
+import org.usfirst.frc.team5314.robot.subsystems.ClawSubsystem;
 import org.usfirst.frc.team5314.robot.subsystems.GearHolderSubsystem;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -37,6 +39,8 @@ public class Robot extends IterativeRobot {
 
 	public static final ChassisSubsystem Chassis = new ChassisSubsystem();
 	public static final GearHolderSubsystem gearHolder = new GearHolderSubsystem();
+	public static final ClawSubsystem claw = new ClawSubsystem();
+	
 	public static OI oi;
 	public static Compressor compressor = new Compressor();
 	public static AHRS ahrs = new AHRS(SPI.Port.kMXP);
@@ -130,6 +134,12 @@ public class Robot extends IterativeRobot {
 		        	}
 	            	break;
 	        	}
+	        	try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 	        
 	    });
 	    visionThread.start();
@@ -142,6 +152,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("turnToAngle", new TurnToAngleCommand(90));
 		SmartDashboard.putData("runAuto", new autoDriveForwardTurn90CommandGroup());
 		SmartDashboard.putData("drive to wall", new DriveToDistFromWallCommand());
+		SmartDashboard.putData("ArcadeDrive", new ArcadeDriveCommand());
 	}
 
 	/**
@@ -159,7 +170,7 @@ public class Robot extends IterativeRobot {
 		compressor.setClosedLoopControl(true);
 		Scheduler.getInstance().run();
 		Chassis.updateStatus();
-		gearHolder.updateStatus();
+		
 		
 	}
 

@@ -31,7 +31,7 @@ public class DriveToDistFromWallCommand extends Command {
     	speed = (speed> -.2)	? -.2 : speed;
     	twist = (angle - Robot.ahrs.getAngle())*.1;
     	SmartDashboard.putNumber("twist", twist);
-    	Robot.Chassis.TeleDrive(0, speed, twist,0);
+    	Robot.Chassis.mecaDrive(0, speed, twist,0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -18,8 +18,7 @@ public class OI {
 	// number it is.
 	Joystick drivestick = new Joystick(RobotMap.driveStick);
 	Button gyroResetbutton = new JoystickButton(drivestick, RobotMap.gyroResetButton);
-	Button turnTo0 = new JoystickButton(drivestick, RobotMap.button0);
-	Button turnTo180 = new JoystickButton(drivestick, RobotMap.button180);
+	
 	// There are a few additional built in buttons you can use. Additionally,
 	// by subclassing Button you can create custom triggers and bind those to
 	// commands the same as any other Button.

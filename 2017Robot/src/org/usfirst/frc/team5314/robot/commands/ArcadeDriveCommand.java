@@ -22,7 +22,7 @@ public class ArcadeDriveCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.Chassis.arcadeDrive(Robot.oi.getDriveX(), Robot.oi.getDriveY());
+    	Robot.Chassis.arcadeDrive(Robot.oi.getDriveX(), Robot.oi.getDriveTwist());
     	
     }
 

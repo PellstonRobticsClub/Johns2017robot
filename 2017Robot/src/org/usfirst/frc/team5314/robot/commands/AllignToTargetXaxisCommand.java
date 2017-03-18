@@ -15,10 +15,10 @@ public class AllignToTargetXaxisCommand extends Command {
 	private double drive;
 	private double dist;
 
-    public AllignToTargetXaxisCommand(double dist) {
+    public AllignToTargetXaxisCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	this.dist = dist;
+    	dist = Robot.dist.getVoltage();
     	requires(Robot.Chassis);
     }
 
@@ -42,9 +42,9 @@ public class AllignToTargetXaxisCommand extends Command {
     	twist = (angle-Robot.ahrs.getAngle())*.03;
     	strafe = (strafe > .4) ? .4 : strafe;
     	strafe = (strafe < -.4) ? -.4 : strafe;
-    	drive = (dist-Robot.Chassis.GetEnc())*3;
+    	drive = (dist-Robot.Chassis.GetEnc());
     	drive = (drive < -.5) ? -.5 : drive;
-    	Robot.Chassis.mecaDrive(strafe, drive, twist,0);
+    	Robot.Chassis.mecaDrive(0, strafe, 0 ,0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

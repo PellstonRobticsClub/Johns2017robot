@@ -21,11 +21,11 @@ public class ClawSubsystem extends Subsystem {
     	setDefaultCommand(new ClawCloseCommand());
     }
     public void grabGear(){
-    	clamp.set(DoubleSolenoid.Value.kReverse);
+    	clamp.set(DoubleSolenoid.Value.kForward);
     }
     
     public void ReleaseGear(){
-    	clamp.set(DoubleSolenoid.Value.kForward);
+    	clamp.set(DoubleSolenoid.Value.kReverse);
     }
 }
 

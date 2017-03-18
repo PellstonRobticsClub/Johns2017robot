@@ -47,6 +47,10 @@ public class ChassisSubsystem extends Subsystem {
 		
 	}
 	
+	public void resetGyro(){
+		Robot.ahrs.reset();
+	}
+	
 	public void mecaDrive(double x, double y, double twist, double angle){
 		drivetrain.mecanumDrive_Cartesian(x, y, twist, angle);
 	}

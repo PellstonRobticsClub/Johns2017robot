@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5314.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team5314.robot.Robot;
 
@@ -24,6 +25,9 @@ public class MecaDriveCommand extends Command {
 	protected void execute() {
 		double angle = Robot.ahrs.getAngle();
 		Robot.Chassis.mecaDrive(Robot.oi.getDriveX(), Robot.oi.getDriveY(), Robot.oi.getDriveTwist(),angle);
+		SmartDashboard.putNumber("x", Robot.oi.getDriveX());
+		SmartDashboard.putNumber("y", Robot.oi.getDriveY());
+		SmartDashboard.putNumber("z", Robot.oi.getDriveTwist());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

@@ -15,9 +15,13 @@ public class DriveSetDistanceCommand extends Command {
 	private double twist;
 	private double distance;
 
+	
+	
+	// pass in encoder count at 2730 per foot
     public DriveSetDistanceCommand(double distance) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	// this.distance = distance * 227.5
     	this.distance = distance;
     	requires(Robot.Chassis);
     }
@@ -30,17 +34,19 @@ public class DriveSetDistanceCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	speed = (distance +100) - Robot.Chassis.GetEnc()*.005;
-    	speed = (speed < -.5) ? -.5 : speed;
-    	twist = (angle - Robot.ahrs.getAngle())*10;
-    	SmartDashboard.putNumber("twist", twist);
+    	//speed = Robot.Chassis.GetEnc() -(distance -100)*.005;
+    	//speed = (speed < -.5) ? -.5 : speed;
+    	speed = .5;
+    	twist = 0;
+    	//twist = (angle - Robot.ahrs.getAngle())*.01;
+    	//SmartDashboard.putNumber("twist", twist);
     	Robot.Chassis.mecaDrive(0, -speed, twist,0);
     	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (Robot.Chassis.GetEnc() > distance);
+        return (Robot.Chassis.GetEnc() < distance);
     }
 
     // Called once after isFinished returns true

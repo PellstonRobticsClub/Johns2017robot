@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.VisionThread;
 import org.opencv.core.Rect;
@@ -18,12 +19,20 @@ import org.usfirst.frc.team5314.robot.GripPipeline;
 
 import org.usfirst.frc.team5314.robot.commands.AllignToTargetXaxisCommand;
 import org.usfirst.frc.team5314.robot.commands.ArcadeDriveCommand;
+import org.usfirst.frc.team5314.robot.commands.ClimberDownCommand;
+import org.usfirst.frc.team5314.robot.commands.ClimberStopCommand;
+import org.usfirst.frc.team5314.robot.commands.ClimberUpCommand;
 import org.usfirst.frc.team5314.robot.commands.DriveSetDistanceCommand;
 import org.usfirst.frc.team5314.robot.commands.DriveToDistFromWallCommand;
+import org.usfirst.frc.team5314.robot.commands.JustDriveAutoCommandGroup;
+import org.usfirst.frc.team5314.robot.commands.ResetGyroCommand;
 import org.usfirst.frc.team5314.robot.commands.TurnToAngleCommand;
-import org.usfirst.frc.team5314.robot.commands.autoDriveForwardTurn90CommandGroup;
+import org.usfirst.frc.team5314.robot.commands.autoDriveForwardCommandGroup;
+import org.usfirst.frc.team5314.robot.commands.autoDriveForwardTurn60CommandGroup;
+import org.usfirst.frc.team5314.robot.commands.autoDriveForwardTurnMinus60CommandGroup;
 import org.usfirst.frc.team5314.robot.subsystems.ChassisSubsystem;
 import org.usfirst.frc.team5314.robot.subsystems.ClawSubsystem;
+import org.usfirst.frc.team5314.robot.subsystems.ClimberSubsystem;
 import org.usfirst.frc.team5314.robot.subsystems.GearHolderSubsystem;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -40,6 +49,9 @@ public class Robot extends IterativeRobot {
 	public static final ChassisSubsystem Chassis = new ChassisSubsystem();
 	public static final GearHolderSubsystem gearHolder = new GearHolderSubsystem();
 	public static final ClawSubsystem claw = new ClawSubsystem();
+	public static final ClimberSubsystem climber = new ClimberSubsystem();
+	
+	SendableChooser<Command> chooser = new SendableChooser<>();
 	
 	public static OI oi;
 	public static Compressor compressor = new Compressor();
@@ -55,6 +67,10 @@ public class Robot extends IterativeRobot {
 	public static int CountContours = 0;
 	public static boolean FoundContours = false;
 	//public static Encoder enc = new Encoder(0, 1);
+	public static int GearDown;
+	public static int GearUp;
+	
+	
 	
 	
 	
@@ -70,6 +86,12 @@ public class Robot extends IterativeRobot {
 		
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 	    camera.setResolution(IMG_WIDTH, IMG_HEIGHT);
+	    
+	    
+	    chooser.addDefault("Center Auto", new autoDriveForwardCommandGroup());
+	    chooser.addObject("Left Side Auto", new autoDriveForwardTurn60CommandGroup());
+	    chooser.addObject("Right Side Auto", new autoDriveForwardTurnMinus60CommandGroup());
+	    chooser.addObject("just drive forward Auto", new JustDriveAutoCommandGroup());
 	   
 	    
 	    visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
@@ -147,12 +169,15 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		
-		SmartDashboard.putData("Allign To Target", new AllignToTargetXaxisCommand(0));
-		SmartDashboard.putData("drive forward", new DriveSetDistanceCommand(1000));
+		SmartDashboard.putData("Allign To Target", new AllignToTargetXaxisCommand());
+		SmartDashboard.putData("drive forward", new DriveSetDistanceCommand(-1000));
 		SmartDashboard.putData("turnToAngle", new TurnToAngleCommand(90));
-		SmartDashboard.putData("runAuto", new autoDriveForwardTurn90CommandGroup());
-		SmartDashboard.putData("drive to wall", new DriveToDistFromWallCommand());
+		SmartDashboard.putData("runAuto", new autoDriveForwardTurn60CommandGroup());
+		SmartDashboard.putData("drive to wall", new DriveToDistFromWallCommand(.07));
 		SmartDashboard.putData("ArcadeDrive", new ArcadeDriveCommand());
+		SmartDashboard.putData("lift", new ClimberUpCommand());
+		SmartDashboard.putData("down", new ClimberDownCommand());
+		SmartDashboard.putData("Reset Gyro", new ResetGyroCommand());
 	}
 
 	/**
@@ -170,6 +195,7 @@ public class Robot extends IterativeRobot {
 		compressor.setClosedLoopControl(true);
 		Scheduler.getInstance().run();
 		Chassis.updateStatus();
+		gearHolder.updateStatus();
 		
 		
 	}
@@ -187,7 +213,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		//autonomousCommand = chooser.getSelected();
+		autonomousCommand = new JustDriveAutoCommandGroup(); //chooser.getSelected();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -215,7 +241,9 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
+		Chassis.resetGyro();
 		compressor.setClosedLoopControl(true);
+		SmartDashboard.putData(Scheduler.getInstance());
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 	}

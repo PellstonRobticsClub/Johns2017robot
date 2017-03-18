@@ -12,13 +12,16 @@ public class DriveToDistFromWallCommand extends Command {
 	private double speed;
 	private double angle;
 	private double twist;
+	private double distance;
 
-    public DriveToDistFromWallCommand() {
+    public DriveToDistFromWallCommand(double dist) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.Chassis);
+    	distance = dist;
+    	
     }
-
+    
     // Called just before this Command runs the first time
     protected void initialize() {
     	angle = Robot.ahrs.getAngle();
@@ -26,9 +29,8 @@ public class DriveToDistFromWallCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	speed = (.07-Robot.dist.getVoltage())*10;
+    	speed = (distance-Robot.dist.getVoltage())*10;
     	speed = (speed < -.5) ? -.5 : speed;
-    	speed = (speed> -.2)	? -.2 : speed;
     	twist = (angle - Robot.ahrs.getAngle())*.1;
     	SmartDashboard.putNumber("twist", twist);
     	Robot.Chassis.mecaDrive(0, speed, twist,0);
@@ -36,7 +38,7 @@ public class DriveToDistFromWallCommand extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (Robot.dist.getVoltage()<.07);
+        return (Robot.dist.getVoltage()< distance);
     }
 
     // Called once after isFinished returns true
